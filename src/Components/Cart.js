@@ -16,10 +16,15 @@ class Cart extends Component{
         const itemIndex = Items.findIndex((item) => {
             return item.name === itemName
         })
-        const items = [...this.state.items, Items[itemIndex]];
-        this.setState({items}, () => {
-            console.log(this.state.items);
-        });
+        const newItem = {...Items[itemIndex], quantity: 1}
+        const index = this.state.items.map((i) => i.id).indexOf(newItem.id);
+        if (index !== -1) {
+          const newItems = [...this.state.items];
+          newItems[index].quantity++;
+          this.setState({items: newItems});
+        } else {
+            this.setState({items: [...this.state.items, newItem]});
+        }
     }
 
     closeItem(index) {
