@@ -38,21 +38,28 @@ class Cart extends Component{
         this.setState({items});
     }
 
-    addQuantity(event, index) {
-        const quantity = parseInt(event.target.value, 10);
-        const items = Object.assign([], this.state.items);
-        console.log(items[index], quantity);
+    addQuantity(index, event) {
+        console.log('index', index)
+        const quantity = parseInt(event.target.value, 10) || 0;
+        const newItems = Object.assign([], this.state.items);
+        const newItem = newItems[index];
+        newItem.quantity = quantity
+        this.setState({items: newItems});
     }
 
-    renderItem(item) {
+    renderItem(item, index) {
         return (
-            <div className="cart-item" key={Math.random()*Math.random()}>
+            <div key={item.id} className="cart-item">
                 <h2>{item.name}</h2>
                 <img className="item-image" src={item.image} alt={item.name}/>
                 <div className="item-details">
                     <span className="item-price">{item.price}</span>
                     <button className="btn btn-cart cart-item" type="button">
-                        <input type="number" onChange={this.addQuantity} value={item.quantity} placeholder="Quantity"/>
+                      <input
+                        type="number"
+                        onChange={this.addQuantity.bind(this, index)}
+                        value={item.quantity}
+                        placeholder="Quantity" />
                     </button>
                 </div>
                 <button id="close" onClick={this.closeItem}>X</button>
@@ -68,7 +75,7 @@ class Cart extends Component{
                     sum={this.calculateSum()}
                 />
                 <div className="cart-container" id="wrapper">
-                    {this.state.items.map(item => this.renderItem(item))}
+                    {this.state.items.map((item, i) => this.renderItem(item, i))}
                 </div>
             </>
         );
