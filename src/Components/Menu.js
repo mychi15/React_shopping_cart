@@ -5,10 +5,16 @@ class Menu extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            curValue: null
+            curValue: null,
+            sum: 0
         }
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.onClickHandler =  this.onClickHandler.bind(this);
+    }
+
+
+    static getDerivedStateFromProps(props, state) {
+      return {sum: props.sum};
     }
 
     onChangeHandler(event) {
@@ -33,6 +39,7 @@ class Menu extends Component {
                     })}
                 </select>
                 <button onClick={this.onClickHandler}>Add to Cart</button>
+                <span>Total sum: {this.state.sum}</span>
             </div>
         )
     }

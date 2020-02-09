@@ -10,6 +10,11 @@ class Cart extends Component{
         }
         this.closeItem = this.closeItem.bind(this);
         this.addQuantity = this.addQuantity.bind(this);
+        this.calculateSum = this.calculateSum.bind(this);
+    }
+
+    calculateSum() {
+      return this.state.items.reduce(((a, b) => a + b.price * b.quantity), 0);
     }
 
     addSelectiontoCart(itemName) {
@@ -60,6 +65,7 @@ class Cart extends Component{
             <>
                 <Menu
                     addToCart={this.addSelectiontoCart.bind(this)}
+                    sum={this.calculateSum()}
                 />
                 <div className="cart-container" id="wrapper">
                     {this.state.items.map(item => this.renderItem(item))}
