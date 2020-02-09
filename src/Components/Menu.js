@@ -39,7 +39,7 @@ class Menu extends Component {
                     })}
                 </select>
                 <button onClick={this.onClickHandler}>Add to Cart</button>
-                <span>Total sum: {this.state.sum}</span>
+                <span>Total sum: {this.state.sum.toFixed(2)}</span>
             </div>
         )
     }
